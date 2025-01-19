@@ -1,0 +1,49 @@
+{
+  "name": "kage",
+  "version": "1.0.0",
+  "description": "CLI tool to automate self-hosting configuration",
+  "main": "dist/index.js",
+  "bin": {
+    "kage": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc && copyfiles -u 1 \"src/templates/**/*\" dist",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "keywords": [
+    "kage",
+    "self-hosting",
+    "docker",
+    "express",
+    "nestjs",
+    "nextjs",
+    "cli",
+    "devops"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4",
+    "commander": "^11.0.0",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^8.2.10",
+    "@types/node": "^22.6.1",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

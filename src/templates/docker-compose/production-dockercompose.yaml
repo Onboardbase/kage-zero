@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: app
+    restart: unless-stopped
+    env_file: .env
+    ports: 
+      - 3100:3000
+    networks:
+      - app_network
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - app_network
+    environment:
+      - DOMAIN=$DOMAIN
+      - EMAIL=$EMAIL
+      - PORT=$PORT
+    depends_on:
+      - app
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
