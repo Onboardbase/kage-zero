@@ -38,7 +38,12 @@ export class DockerBuilder {
       String(this.config.port)
     );
 
-    await writeFile(join(process.cwd(), "Dockerfile"), dockerfileContent);
+    // safe create output folder
+    await mkdir(join(process.cwd(), "kage"), { recursive: true });
+    await writeFile(
+      join(process.cwd(), "kage", "Dockerfile"),
+      dockerfileContent
+    );
   }
 
   private async generateDockerCompose(): Promise<void> {
@@ -60,7 +65,7 @@ export class DockerBuilder {
       .replace("$DOMAIN", domain);
 
     await writeFile(
-      join(process.cwd(), "docker-compose.yml"),
+      join(process.cwd(), "kage", "docker-compose.yml"),
       dockerComposeContent
     );
 
@@ -71,14 +76,20 @@ export class DockerBuilder {
     );
 
     const caddyFileContent = await readFile(caddyFileTemplatePath, "utf-8");
-    await writeFile(join(process.cwd(), "Caddyfile"), caddyFileContent);
+    // safe create output folder
+    await mkdir(join(process.cwd(), "kage", "caddy_config"), {
+      recursive: true,
+    });
+    await writeFile(
+      join(process.cwd(), "kage", "caddy_config", "Caddyfile"),
+      caddyFileContent
+    );
   }
 
-    private async generateEnvFile(): Promise<void> {
-      const envPath = join(process.cwd(), ".env");
-      const exists = await stat(envPath).catch(() => false);
-      if (!exists) {
-        await writeFile(envPath, '');
-      }
-    }
+  private async generateEnvFile(): Promise<void> {
+    const envPath = join(process.cwd(), ".env");
+    const exists = await stat(envPath).catch(() => false);
+    const envContent = exists ? await readFile(envPath, "utf-8") : ""
+    await writeFile(join(process.cwd(), "kage", ".env"), envContent);
+  }
 }

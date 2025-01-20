@@ -80,10 +80,12 @@ async function main() {
 
       spinner.succeed("Successfully generated Docker configurations!");
       console.log(chalk.green("\nFiles created:"));
-      console.log("- Dockerfile");
-      console.log("- docker-compose.yml");
-      console.log("- Caddyfile");
-      console.log("- .env");
+      console.log("kage/");
+      console.log("├── Dockerfile");
+      console.log("├── docker-compose.yml");
+      console.log("├──.env");
+      console.log("└── caddy_config/");
+      console.log("    └── Caddyfile");
 
       console.log(chalk.blueBright("\n Update .env with your secrets..."));
     } catch (error: any) {
