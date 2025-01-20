@@ -1,4 +1,4 @@
-# Kagebase
+# Kage
 
 A powerful CLI tool to automate self-hosting configuration for your web applications. `kagebase` simplifies the process of setting up Docker configurations, reverse proxy, and SSL certificates for various types of web applications.
 
@@ -13,7 +13,7 @@ A powerful CLI tool to automate self-hosting configuration for your web applicat
 ## Installation
 
 ```bash
-npm install -g kagebase
+npm i -g kagebase
 ```
 
 ## Requirements
@@ -67,10 +67,6 @@ During the initialization process, you'll be prompted for:
 - Express (TypeScript)
 - NestJS
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
 ## Contributing
 
 We love your input! We want to make contributing to `kage` as easy and transparent as possible, whether it's:
@@ -84,6 +80,10 @@ We love your input! We want to make contributing to `kage` as easy and transpare
 ### Any contributions you make will be under the MIT Software License
 
 When you submit code changes, your submissions are understood to be under the same [MIT License](./LICENSE) that covers the project. Feel free to contact the maintainers if that's a concern.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ### Bug Reports
 
