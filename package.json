@@ -2,6 +2,10 @@
   "name": "kage",
   "version": "0.0.1",
   "description": "CLI tool to automate self-hosting configuration",
+  "author": {
+    "name": "Onboardbase",
+    "url": "https://github.com/onboardbase"
+  },
   "main": "dist/index.js",
   "bin": {
     "kage": "./dist/index.js"
@@ -24,7 +28,6 @@
     "cli",
     "devops"
   ],
-  "author": "",
   "license": "MIT",
   "dependencies": {
     "chalk": "^4",
