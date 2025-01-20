@@ -6,8 +6,6 @@ services:
     container_name: app
     restart: unless-stopped
     env_file: .env
-    ports: 
-      - 3100:3000
     networks:
       - app_network
 
