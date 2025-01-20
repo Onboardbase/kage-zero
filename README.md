@@ -1,6 +1,6 @@
 # Kage
 
-A powerful CLI tool to automate self-hosting configuration for your web applications. `kagebase` simplifies the process of setting up Docker configurations, reverse proxy, and SSL certificates for various types of web applications.
+A powerful CLI tool to automate self-hosting configuration for your web applications. `kage` simplifies the process of setting up Docker configurations, reverse proxy, and SSL certificates for various types of web applications.
 
 ## Features
 
