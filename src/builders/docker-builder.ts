@@ -90,6 +90,7 @@ export class DockerBuilder {
     const envPath = join(process.cwd(), ".env");
     const exists = await stat(envPath).catch(() => false);
     const envContent = exists ? await readFile(envPath, "utf-8") : ""
+    await mkdir(join(process.cwd(), "kage"), { recursive: true });
     await writeFile(join(process.cwd(), "kage", ".env"), envContent);
   }
 }
