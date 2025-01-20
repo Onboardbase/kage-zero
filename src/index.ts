@@ -82,6 +82,7 @@ async function main() {
       console.log(chalk.green("\nFiles created:"));
       console.log("- Dockerfile");
       console.log("- docker-compose.yml");
+      console.log("- Caddyfile");
       console.log("- .env");
 
       console.log(chalk.blueBright("\n Update .env with your secrets..."));
