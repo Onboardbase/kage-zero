@@ -6,6 +6,7 @@ import { DockerBuilder } from "./builders/docker-builder";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import ora from "ora";
+import { run } from "./commands";
 
 async function main() {
   const program = new Command();
@@ -93,6 +94,11 @@ async function main() {
       process.exit(1);
     }
   });
+
+  program
+    .command("run")
+    .description("Start the Docker containers")
+    .action(run);
 
   program.parse();
 }
