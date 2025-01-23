@@ -1,6 +1,6 @@
 {
   "name": "kagebase",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "CLI tool to automate self-hosting configuration",
   "author": {
     "name": "Onboardbase",
