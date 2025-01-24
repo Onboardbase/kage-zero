@@ -1,14 +1,32 @@
+[![npm version](https://badge.fury.io/js/kagebase.svg)](https://badge.fury.io/js/kagebase)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Kage
 
-A powerful CLI tool to automate self-hosting configuration for your web applications. `kage` simplifies the process of setting up Docker configurations, reverse proxy, and SSL certificates for various types of web applications.
+> A powerful CLI tool that transforms your web applications into self-hostable solutions in minutes. Say goodbye to manual Docker configurations and deployment headaches.
+
+`kage` automates the tedious process of preparing applications for self-hosting by automatically generating Docker configurations, setting up reverse proxies, and managing SSL certificates. Perfect for developers who want to make their applications self-hostable with minimal effort.
+
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Requirements](#requirements)
+- [How It Works](#how-it-works)
+- [Usage](#usage)
+- [Configuration Options](#configuration-options)
+- [Project Type Support](#project-type-support)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
-- 🔍 Automatic project type detection (NextJS, Express, NestJS)
-- 🐳 Docker configuration generation
-- 🔐 SSL certificate management with Caddy
-- 🌐 Multi-domain support
-- ⚡ Easy-to-use interactive CLI
+- 🔍 Intelligent project type detection (NextJS, Express, NestJS)
+- 🐳 Automated Docker configuration generation
+- 🔐 Built-in SSL certificate management with Caddy
+- 🌐 Multi-domain support out of the box
+- ⚡ Interactive CLI with smart defaults
+- 🛠️ Zero-config setup for popular frameworks
+- 📦 Development and production ready configurations
 
 ## Installation
 
@@ -16,10 +34,30 @@ A powerful CLI tool to automate self-hosting configuration for your web applicat
 npm i -g kagebase
 ```
 
+### Or using Yarn
+
+```bash
+yarn global add kagebase
+```
+
+### Or using pnpm
+
+```bash
+pnpm i -g kagebase
+```
+
 ## Requirements
 
 - Node.js >= 16.0.0
 - Docker and Docker Compose installed on your system
+
+## How It Works
+
+Kage simplifies the self-hosting process in three easy steps:
+
+1. **Project Analysis**: Scans your project to detect the framework, dependencies, and configuration requirements
+2. **Configuration Generation**: Creates optimized Docker configurations and environment files
+3. **Deployment Setup**: Sets up reverse proxy with SSL certificates for secure access
 
 ## Usage
 
@@ -34,6 +72,19 @@ The CLI will guide you through the following steps:
 2. Configure the port for your application
 3. Set up your domain name(s)
 4. Provide an email for SSL certificates
+
+To start your containerized application:
+
+```bash
+kage run
+```
+
+This command will:
+1. Check for the required Docker configuration files
+2. Start all containers defined in your docker-compose.yml
+3. Run your application in detached mode (-d flag)
+
+If you haven't run `kage init` yet, the command will prompt you to do so first.
 
 ### Generated Files
 
@@ -62,9 +113,8 @@ During the initialization process, you'll be prompted for:
 ## Project Type Support
 
 `kage` currently supports the following project types:
-- NextJS
-- Express (JavaScript)
-- Express (TypeScript)
+- NextJS (Legacy and Standalone)
+- Express (JavaScript and TypeScript)
 - NestJS
 
 ## Contributing
