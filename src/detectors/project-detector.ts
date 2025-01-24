@@ -1,7 +1,12 @@
-import { readFile } from "fs/promises";
+import { readFile, readdir } from "fs/promises";
 import { join } from "path";
 
-export type ProjectType = "express-js" | "express-ts" | "nestjs" | "nextjs";
+export type ProjectType =
+  | "express-js"
+  | "express-ts"
+  | "nestjs"
+  | "nextjs-legacy"
+  | "nextjs-standalone";
 
 export class ProjectDetector {
   async detect(): Promise<ProjectType> {
@@ -20,7 +25,24 @@ export class ProjectDetector {
       }
 
       if (dependencies["next"]) {
-        return "nextjs";
+        // Find Next.js config file using regex pattern
+        const files = await readdir(process.cwd());
+        const nextConfigRegex = /^next\.config/;
+        const nextConfigFile = files.find((file) => nextConfigRegex.test(file));
+
+        if (!nextConfigFile) {
+          return "nextjs-legacy"; // Default to legacy if no config file found
+        }
+
+        const nextConfig = await readFile(
+          join(process.cwd(), nextConfigFile),
+          "utf-8"
+        );
+        // Check for standalone configuration
+        if (nextConfig.includes("standalone")) {
+          return "nextjs-standalone";
+        }
+        return "nextjs-legacy";
       }
 
       if (dependencies["express"]) {
