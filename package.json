@@ -1,5 +1,5 @@
 {
-  "name": "kagebase",
+  "name": "kage",
   "version": "0.0.7",
   "description": "CLI tool to automate self-hosting configuration",
   "author": {
@@ -28,7 +28,6 @@
     "cli",
     "devops"
   ],
-  "license": "MIT",
   "dependencies": {
     "chalk": "^4",
     "commander": "^11.0.0",
