@@ -1,11 +1,12 @@
 version: '3.8'
 
+name: $APP_NAME
+
 services:
   app:
     build: 
       context: ../
       dockerfile: kage/Dockerfile
-    container_name: app
     restart: unless-stopped
     env_file: .env
     networks:
@@ -13,7 +14,6 @@ services:
 
   caddy:
     image: caddy:2-alpine
-    container_name: caddy
     restart: unless-stopped
     ports:
       - "80:80"

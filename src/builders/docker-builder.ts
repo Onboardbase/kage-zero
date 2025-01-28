@@ -53,7 +53,7 @@ export class DockerBuilder {
       "production-dockercompose.yaml"
     );
 
-    const { port, email, domain } = this.config;
+    const { appName, port, email, domain } = this.config;
 
     let dockerComposeContent = await readFile(
       dockerComposeTemplatePath,
@@ -62,7 +62,8 @@ export class DockerBuilder {
     dockerComposeContent = dockerComposeContent
       .replace("$PORT", port.toString())
       .replace("$EMAIL", email)
-      .replace("$DOMAIN", domain);
+      .replace("$DOMAIN", domain)
+      .replace("$APP_NAME", appName);
 
     await writeFile(
       join(process.cwd(), "kage", "docker-compose.yml"),
