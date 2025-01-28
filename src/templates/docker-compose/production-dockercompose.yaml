@@ -1,5 +1,7 @@
 version: '3.8'
 
+name: $APP_NAME
+
 services:
   app:
     build: 

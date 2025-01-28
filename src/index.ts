@@ -30,6 +30,13 @@ async function main() {
       const answers = await inquirer.prompt([
         {
           type: "input",
+          name: "appName",
+          message: "What is your application name?",
+          default: "kage",
+          validate: (input) => /^[a-z0-9][a-z0-9_-]*$/.test(input) || "Name must match '^[a-z0-9][a-z0-9_-]*$'",
+        },
+        {
+          type: "input",
           name: "port",
           message: "Which port should the app run on?",
           default: "3000",
@@ -70,7 +77,7 @@ async function main() {
       spinner.start("Generating Docker configurations...");
 
       const builder = new DockerBuilder({
-        appName: "testing",
+        appName: answers.appName,
         projectType,
         port: parseInt(answers.port),
         domain: answers.domain,
