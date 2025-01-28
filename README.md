@@ -129,7 +129,7 @@ We love your input! We want to make contributing to `kage` as easy and transpare
 
 ### Any contributions you make will be under the MIT Software License
 
-When you submit code changes, your submissions are understood to be under the same [MIT License](./LICENSE) that covers the project. Feel free to contact the maintainers if that's a concern.
+When you submit code changes, your submissions are understood to be under the same [License](./LICENSE) that covers the project. Feel free to contact the maintainers if that's a concern.
 
 ## License
 
