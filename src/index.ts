@@ -96,6 +96,8 @@ async function main() {
       console.log("    └── Caddyfile");
 
       console.log(chalk.blueBright("\n Update .env with your secrets..."));
+      console.log(chalk.blueBright("\n To start your application, run the command: 'kage run'.\n Make sure Docker is running and configured properly."));
+      
     } catch (error: any) {
       spinner.fail(chalk.red(`Error: ${error.message}`));
       process.exit(1);
