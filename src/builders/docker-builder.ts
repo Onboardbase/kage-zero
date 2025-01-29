@@ -1,10 +1,10 @@
-import { ProjectType } from "../detectors/project-detector";
+import { ProjectConfig } from "../detectors/project-detector";
 import { mkdir, readFile, writeFile, stat } from "fs/promises";
 import { join } from "path";
 import * as path from "path";
 
 export interface Config {
-  projectType: ProjectType;
+  projectConfig: ProjectConfig;
   port: number;
   appName: string;
   domain: string;
@@ -28,15 +28,12 @@ export class DockerBuilder {
     const templatePath = join(
       this.templatesPath,
       "docker",
-      this.config.projectType,
+      this.config.projectConfig.type,
       "Dockerfile"
     );
 
     let dockerfileContent = await readFile(templatePath, "utf-8");
-    dockerfileContent = dockerfileContent.replace(
-      /$PORT/g,
-      String(this.config.port)
-    );
+    dockerfileContent = dockerfileContent.replaceAll("$PORT", this.config.port.toString())
 
     // safe create output folder
     await mkdir(join(process.cwd(), "kage"), { recursive: true });
@@ -50,7 +47,7 @@ export class DockerBuilder {
     const dockerComposeTemplatePath = join(
       this.templatesPath,
       "docker-compose",
-      "production-dockercompose.yaml"
+      this.config.projectConfig.isStatic ? "static-dockercompose.yaml" : "production-dockercompose.yaml"
     );
 
     const { appName, port, email, domain } = this.config;
@@ -60,10 +57,10 @@ export class DockerBuilder {
       "utf-8"
     );
     dockerComposeContent = dockerComposeContent
-      .replace("$PORT", port.toString())
-      .replace("$EMAIL", email)
-      .replace("$DOMAIN", domain)
-      .replace("$APP_NAME", appName);
+      .replaceAll("$PORT", port.toString())
+      .replaceAll("$EMAIL", email)
+      .replaceAll("$DOMAIN", domain)
+      .replaceAll("$APP_NAME", appName);
 
     await writeFile(
       join(process.cwd(), "kage", "docker-compose.yml"),
@@ -73,7 +70,7 @@ export class DockerBuilder {
     const caddyFileTemplatePath = join(
       this.templatesPath,
       "caddy",
-      "Caddyfile"
+      this.config.projectConfig.isStatic ? "Caddyfile.static" : "Caddyfile"
     );
 
     const caddyFileContent = await readFile(caddyFileTemplatePath, "utf-8");

@@ -22,9 +22,9 @@ async function main() {
     try {
       // Detect project type
       const detector = new ProjectDetector();
-      const projectType = await detector.detect();
+      const projectConfig = await detector.detect();
 
-      spinner.succeed(`Detected ${projectType} project`);
+      spinner.succeed(`Detected ${projectConfig.type} project`);
 
       // Get configuration from user
       const answers = await inquirer.prompt([
@@ -78,7 +78,7 @@ async function main() {
 
       const builder = new DockerBuilder({
         appName: answers.appName,
-        projectType,
+        projectConfig,
         port: parseInt(answers.port),
         domain: answers.domain,
         email: answers.email,
