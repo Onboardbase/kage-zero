@@ -1,0 +1,41 @@
+version: '3.8'
+
+name: $APP_NAME
+
+services:
+  app:
+    build: 
+      context: ../
+      dockerfile: kage/Dockerfile
+    volumes:
+      - static_files:/app/dist
+    networks:
+      - app_network
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy_config/Caddyfile:/etc/caddy/Caddyfile:ro
+      - static_files:/srv:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - app_network
+    environment:
+      - DOMAIN=$DOMAIN
+      - EMAIL=$EMAIL
+    depends_on:
+      - app
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  static_files:
+  caddy_data:
+  caddy_config:
