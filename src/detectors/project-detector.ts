@@ -8,7 +8,9 @@ type ProjectType =
   | "nextjs-legacy"
   | "nextjs-standalone"
   | "astro-ssg"
-  | "astro-ssr";
+  | "astro-ssr"
+  | "nuxt-ssr"
+  | "nuxt-ssg";
 
 export interface ProjectConfig {
   type: ProjectType;
@@ -51,6 +53,15 @@ const PROJECT_CONFIGS: Record<ProjectType, ProjectConfig> = {
     isStatic: false,
     defaultPort: 4321,
   },
+  "nuxt-ssr": {
+    type: "nuxt-ssr",
+    isStatic: false,
+    defaultPort: 3000,
+  },
+  "nuxt-ssg": {
+    type: "nuxt-ssg",
+    isStatic: true,
+  },
 };
 
 export class ProjectDetector {
@@ -75,6 +86,29 @@ export class ProjectDetector {
       ...packageJson.dependencies,
       ...packageJson.devDependencies,
     };
+
+    if (dependencies["nuxt"]) {
+      // Find Nuxt config file using regex pattern
+      const files = await readdir(process.cwd());
+      const nuxtConfigRegex = /^nuxt\.config/;
+      const nuxtConfigFile = files.find((file) => nuxtConfigRegex.test(file));
+
+      if (!nuxtConfigFile) {
+        return "nuxt-ssr"; // Default to SSR if no config file
+      }
+
+      const nuxtConfig = await readFile(join(process.cwd(), nuxtConfigFile), "utf-8");
+      
+      // Check for SSG configuration
+      if (
+        nuxtConfig.includes("ssr: false") ||
+        nuxtConfig.includes("target: 'static'") ||
+        nuxtConfig.includes('target: "static"')
+      ) {
+        return "nuxt-ssg";
+      }
+      return "nuxt-ssr";
+    }
 
     if (dependencies["astro"]) {
       // Check for astro.config file using regex pattern
