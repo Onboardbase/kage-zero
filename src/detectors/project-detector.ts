@@ -199,7 +199,7 @@ export class ProjectDetector {
     }
 
     throw new Error(
-      "Unsupported project type. Only Express and NestJS projects are currently supported."
+      "Unsupported project type. Only Express, NestJS, Next.js, Nuxt.js, Astro, Vite, Vue, and React projects are currently supported."
     );
   }
 }
