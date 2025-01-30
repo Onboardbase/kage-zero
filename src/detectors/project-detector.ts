@@ -87,29 +87,6 @@ export class ProjectDetector {
       ...packageJson.devDependencies,
     };
 
-    if (dependencies["nuxt"]) {
-      // Find Nuxt config file using regex pattern
-      const files = await readdir(process.cwd());
-      const nuxtConfigRegex = /^nuxt\.config/;
-      const nuxtConfigFile = files.find((file) => nuxtConfigRegex.test(file));
-
-      if (!nuxtConfigFile) {
-        return "nuxt-ssr"; // Default to SSR if no config file
-      }
-
-      const nuxtConfig = await readFile(join(process.cwd(), nuxtConfigFile), "utf-8");
-      
-      // Check for SSG configuration
-      if (
-        nuxtConfig.includes("ssr: false") ||
-        nuxtConfig.includes("target: 'static'") ||
-        nuxtConfig.includes('target: "static"')
-      ) {
-        return "nuxt-ssg";
-      }
-      return "nuxt-ssr";
-    }
-
     if (dependencies["astro"]) {
       // Check for astro.config file using regex pattern
       const files = await readdir(process.cwd());
@@ -158,6 +135,29 @@ export class ProjectDetector {
         return "nextjs-standalone";
       }
       return "nextjs-legacy";
+    }
+
+    if (dependencies["nuxt"]) {
+      // Find Nuxt config file using regex pattern
+      const files = await readdir(process.cwd());
+      const nuxtConfigRegex = /^nuxt\.config/;
+      const nuxtConfigFile = files.find((file) => nuxtConfigRegex.test(file));
+
+      if (!nuxtConfigFile) {
+        return "nuxt-ssr"; // Default to SSR if no config file
+      }
+
+      const nuxtConfig = await readFile(join(process.cwd(), nuxtConfigFile), "utf-8");
+      
+      // Check for SSG configuration
+      if (
+        nuxtConfig.includes("ssr: false") ||
+        nuxtConfig.includes("target: 'static'") ||
+        nuxtConfig.includes('target: "static"')
+      ) {
+        return "nuxt-ssg";
+      }
+      return "nuxt-ssr";
     }
 
     if (dependencies["express"]) {
