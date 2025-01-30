@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/kagebase.svg)](https://badge.fury.io/js/kagebase)
+[![npm version](https://badge.fury.io/js/kage-cli.svg)](https://badge.fury.io/js/kage-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Kage
@@ -20,7 +20,7 @@
 
 ## Features
 
-- 🔍 Intelligent project type detection (NextJS, Express, NestJS)
+- 🔍 Intelligent project type detection (NextJS, Astro, Nuxt, React, Vite, Express, NestJS)
 - 🐳 Automated Docker configuration generation
 - 🔐 Built-in SSL certificate management with Caddy
 - 🌐 Multi-domain support out of the box
@@ -31,19 +31,19 @@
 ## Installation
 
 ```bash
-npm i -g kagebase
+npm i -g kage-cli
 ```
 
 ### Or using Yarn
 
 ```bash
-yarn global add kagebase
+yarn global add kage-cli
 ```
 
 ### Or using pnpm
 
 ```bash
-pnpm i -g kagebase
+pnpm i -g kage-cli
 ```
 
 ## Requirements

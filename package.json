@@ -1,5 +1,5 @@
 {
-  "name": "kagebase",
+  "name": "kage-cli",
   "version": "0.0.8",
   "description": "CLI tool to automate self-hosting configuration",
   "author": {
