@@ -10,7 +10,10 @@ type ProjectType =
   | "astro-ssg"
   | "astro-ssr"
   | "nuxt-ssr"
-  | "nuxt-ssg";
+  | "nuxt-ssg"
+  | "vite"
+  | "vue"
+  | "react";
 
 export interface ProjectConfig {
   type: ProjectType;
@@ -60,6 +63,18 @@ const PROJECT_CONFIGS: Record<ProjectType, ProjectConfig> = {
   },
   "nuxt-ssg": {
     type: "nuxt-ssg",
+    isStatic: true,
+  },
+  vite: {
+    type: "vite",
+    isStatic: true,
+  },
+  vue: {
+    type: "vue",
+    isStatic: true,
+  },
+  react: {
+    type: "react",
     isStatic: true,
   },
 };
@@ -147,8 +162,11 @@ export class ProjectDetector {
         return "nuxt-ssr"; // Default to SSR if no config file
       }
 
-      const nuxtConfig = await readFile(join(process.cwd(), nuxtConfigFile), "utf-8");
-      
+      const nuxtConfig = await readFile(
+        join(process.cwd(), nuxtConfigFile),
+        "utf-8"
+      );
+
       // Check for SSG configuration
       if (
         nuxtConfig.includes("ssr: false") ||
@@ -166,6 +184,18 @@ export class ProjectDetector {
         return "express-ts";
       }
       return "express-js";
+    }
+
+    if (dependencies["vite"]) {
+      return "vite";
+    }
+
+    if (dependencies["vue"]) {
+      return "vue";
+    }
+
+    if (dependencies["react"]) {
+      return "react";
     }
 
     throw new Error(
