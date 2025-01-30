@@ -113,9 +113,22 @@ During the initialization process, you'll be prompted for:
 ## Project Type Support
 
 `kage` currently supports the following project types:
+### Server-side Frameworks
 - NextJS (Legacy and Standalone)
 - Express (JavaScript and TypeScript)
 - NestJS
+- Nuxt (SSR mode)
+- Astro (SSR mode)
+
+### Client-side Frameworks (SSG only)
+- Astro (SSG mode)
+- Nuxt (SSG mode)
+- Vite
+- Vue
+- React
+
+### Important Note for SSG Builds
+If you're using a client-side framework or a server-side framework with SSG (Static Site Generation), your build output directory must be named `dist`. This is required for the static site deployment to work correctly with the generated Docker configuration.
 
 ## Contributing
 
