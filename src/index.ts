@@ -22,9 +22,9 @@ async function main() {
     try {
       // Detect project type
       const detector = new ProjectDetector();
-      const projectType = await detector.detect();
+      const projectConfig = await detector.detect();
 
-      spinner.succeed(`Detected ${projectType} project`);
+      spinner.succeed(`Detected ${projectConfig.type} project`);
 
       // Get configuration from user
       const answers = await inquirer.prompt([
@@ -35,13 +35,13 @@ async function main() {
           default: "kage",
           validate: (input) => /^[a-z0-9][a-z0-9_-]*$/.test(input) || "Name must match '^[a-z0-9][a-z0-9_-]*$'",
         },
-        {
+        ...((!projectConfig.isStatic) ? [{
           type: "input",
           name: "port",
           message: "Which port should the app run on?",
-          default: "3000",
-          validate: (input) => !isNaN(parseInt(input)),
-        },
+          default:  projectConfig.defaultPort || "3000",
+          validate: (input : string) => !isNaN(parseInt(input)),
+        }] : []),
         {
           type: "input",
           name: "domain",
@@ -78,7 +78,7 @@ async function main() {
 
       const builder = new DockerBuilder({
         appName: answers.appName,
-        projectType,
+        projectConfig,
         port: parseInt(answers.port),
         domain: answers.domain,
         email: answers.email,
