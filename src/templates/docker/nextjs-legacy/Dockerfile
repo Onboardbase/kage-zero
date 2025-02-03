@@ -39,7 +39,7 @@ ENV NODE_ENV=production
 # Copy only the necessary files from the builder stage
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
+COPY --from=builder /app/public* ./public
 COPY --from=builder /app/node_modules ./node_modules
 
 # Expose the port your Next.js app will run on
