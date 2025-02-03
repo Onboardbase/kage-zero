@@ -37,7 +37,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Copy the necessary files for running the application
-COPY --from=builder /app/public ./public
+COPY --from=builder /app/public* ./public
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
