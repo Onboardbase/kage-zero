@@ -103,7 +103,7 @@ export const run = async () => {
     }
 
     spinner.start("Starting Docker containers...");
-    execSync(`docker-compose -f ${composePath} up -d`, {
+    execSync(`docker-compose -f ${composePath} up -d --build`, {
       stdio: "inherit",
     });
 
