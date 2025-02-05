@@ -13,7 +13,8 @@ type ProjectType =
   | "nuxt-ssg"
   | "vite"
   | "vue"
-  | "react";
+  | "react"
+  | "hono";
 
 export interface ProjectConfig {
   type: ProjectType;
@@ -22,6 +23,11 @@ export interface ProjectConfig {
 }
 
 const PROJECT_CONFIGS: Record<ProjectType, ProjectConfig> = {
+  hono: {
+    type: "hono",
+    isStatic: false,
+    defaultPort: 3000,
+  },
   "express-js": {
     type: "express-js",
     isStatic: false,
@@ -184,6 +190,10 @@ export class ProjectDetector {
         return "express-ts";
       }
       return "express-js";
+    }
+
+    if (dependencies["hono"]) {
+      return "hono";
     }
 
     if (dependencies["vite"]) {
