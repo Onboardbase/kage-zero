@@ -1,6 +1,6 @@
 {
   "name": "kage-auto",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "CLI tool to automate self-hosting configuration",
   "author": {
     "name": "Onboardbase",

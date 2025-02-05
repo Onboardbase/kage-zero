@@ -20,7 +20,7 @@
 
 ## Features
 
-- 🔍 Intelligent project type detection (NextJS, Astro, Nuxt, React, Vite, Express, NestJS)
+- 🔍 Intelligent project type detection (NextJS, Astro, Nuxt, React, Vite, Express, NestJS, Hono)
 - 🐳 Automated Docker configuration generation
 - 🔐 Built-in SSL certificate management with Caddy
 - 🌐 Multi-domain support out of the box
@@ -119,6 +119,7 @@ During the initialization process, you'll be prompted for:
 - NestJS
 - Nuxt (SSR mode)
 - Astro (SSR mode)
+- Hono
 
 ### Client-side Frameworks (SSG only)
 - Astro (SSG mode)
