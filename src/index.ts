@@ -41,7 +41,19 @@ async function main() {
           message: "Which port should the app run on?",
           default:  projectConfig.defaultPort || "3000",
           validate: (input : string) => !isNaN(parseInt(input)),
-        }] : []),
+        }] : [{
+          type : "input",
+          name : "outputDir",
+          message: "What is your build output directory?",
+          default: projectConfig.outputDir,
+          validate: (input: string) => {
+            const dirRegex = /^([a-zA-Z0-9]+[a-zA-Z0-9\/._-]*[a-zA-Z0-9]+|[a-zA-Z0-9]+|\.{1}[a-zA-Z0-9][a-zA-Z0-9\/._-]*[a-zA-Z0-9]*)$/;
+            if (!dirRegex.test(input)) {
+              return "Invalid directory path. Must start and end with alphanumeric characters and can only contain letters, numbers, underscores, hyphens, dots, and forward slashes";
+            }
+            return true;
+          },
+        }]),
         {
           type: "input",
           name: "domain",
@@ -82,6 +94,7 @@ async function main() {
         port: parseInt(answers.port),
         domain: answers.domain,
         email: answers.email,
+        outputDir: answers.outputDir
       });
 
       await builder.build();
