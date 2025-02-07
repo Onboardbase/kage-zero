@@ -20,6 +20,7 @@ export interface ProjectConfig {
   type: ProjectType;
   isStatic: boolean;
   defaultPort?: number;
+  outputDir?: string;
 }
 
 const PROJECT_CONFIGS: Record<ProjectType, ProjectConfig> = {
@@ -56,6 +57,7 @@ const PROJECT_CONFIGS: Record<ProjectType, ProjectConfig> = {
   "astro-ssg": {
     type: "astro-ssg",
     isStatic: true,
+    outputDir: "dist"
   },
   "astro-ssr": {
     type: "astro-ssr",
@@ -70,18 +72,22 @@ const PROJECT_CONFIGS: Record<ProjectType, ProjectConfig> = {
   "nuxt-ssg": {
     type: "nuxt-ssg",
     isStatic: true,
+    outputDir: "dist"
   },
   vite: {
     type: "vite",
     isStatic: true,
+    outputDir: "dist"
   },
   vue: {
     type: "vue",
     isStatic: true,
+    outputDir: "dist"
   },
   react: {
     type: "react",
     isStatic: true,
+    outputDir: "dist"
   },
 };
 
