@@ -9,6 +9,7 @@ export interface Config {
   appName: string;
   domain: string;
   email: string;
+  outputDir?: string;
 }
 
 export class DockerBuilder {
@@ -61,6 +62,10 @@ export class DockerBuilder {
       .replaceAll("$EMAIL", email)
       .replaceAll("$DOMAIN", domain)
       .replaceAll("$APP_NAME", appName);
+    
+    if (this.config.projectConfig.isStatic){
+      dockerComposeContent = dockerComposeContent.replaceAll("$OUTPUT_DIR", this.config.outputDir as string)
+    }
 
     await writeFile(
       join(process.cwd(), "kage", "docker-compose.yml"),
