@@ -6,15 +6,13 @@ import { DockerBuilder } from "./builders/docker-builder";
 import inquirer from "inquirer";
 import chalk from "chalk";
 import ora from "ora";
-import { run } from "./commands";
+import pkg from "../package.json";
+import { build, run } from "./commands";
 
 async function main() {
   const program = new Command();
 
-  program
-    .name("kage")
-    .description("CLI tool to automate self-hosting configuration")
-    .version("1.0.0");
+  program.name(pkg.name).description(pkg.description).version(pkg.version);
 
   program.command("init").action(async () => {
     const spinner = ora("Detecting project type...").start();
@@ -33,27 +31,36 @@ async function main() {
           name: "appName",
           message: "What is your application name?",
           default: "kage",
-          validate: (input) => /^[a-z0-9][a-z0-9_-]*$/.test(input) || "Name must match '^[a-z0-9][a-z0-9_-]*$'",
+          validate: (input) =>
+            /^[a-z0-9][a-z0-9_-]*$/.test(input) ||
+            "Name must match '^[a-z0-9][a-z0-9_-]*$'",
         },
-        ...((!projectConfig.isStatic) ? [{
-          type: "input",
-          name: "port",
-          message: "Which port should the app run on?",
-          default:  projectConfig.defaultPort || "3000",
-          validate: (input : string) => !isNaN(parseInt(input)),
-        }] : [{
-          type : "input",
-          name : "outputDir",
-          message: "What is your build output directory?",
-          default: projectConfig.outputDir,
-          validate: (input: string) => {
-            const dirRegex = /^([a-zA-Z0-9]+[a-zA-Z0-9\/._-]*[a-zA-Z0-9]+|[a-zA-Z0-9]+|\.{1}[a-zA-Z0-9][a-zA-Z0-9\/._-]*[a-zA-Z0-9]*)$/;
-            if (!dirRegex.test(input)) {
-              return "Invalid directory path. Must start and end with alphanumeric characters and can only contain letters, numbers, underscores, hyphens, dots, and forward slashes";
-            }
-            return true;
-          },
-        }]),
+        ...(!projectConfig.isStatic
+          ? [
+              {
+                type: "input",
+                name: "port",
+                message: "Which port should the app run on?",
+                default: projectConfig.defaultPort || "3000",
+                validate: (input: string) => !isNaN(parseInt(input)),
+              },
+            ]
+          : [
+              {
+                type: "input",
+                name: "outputDir",
+                message: "What is your build output directory?",
+                default: projectConfig.outputDir,
+                validate: (input: string) => {
+                  const dirRegex =
+                    /^([a-zA-Z0-9]+[a-zA-Z0-9\/._-]*[a-zA-Z0-9]+|[a-zA-Z0-9]+|\.{1}[a-zA-Z0-9][a-zA-Z0-9\/._-]*[a-zA-Z0-9]*)$/;
+                  if (!dirRegex.test(input)) {
+                    return "Invalid directory path. Must start and end with alphanumeric characters and can only contain letters, numbers, underscores, hyphens, dots, and forward slashes";
+                  }
+                  return true;
+                },
+              },
+            ]),
         {
           type: "input",
           name: "domain",
@@ -94,7 +101,7 @@ async function main() {
         port: parseInt(answers.port),
         domain: answers.domain,
         email: answers.email,
-        outputDir: answers.outputDir
+        outputDir: answers.outputDir,
       });
 
       await builder.build();
@@ -109,18 +116,23 @@ async function main() {
       console.log("    └── Caddyfile");
 
       console.log(chalk.blueBright("\n Update .env with your secrets..."));
-      console.log(chalk.blueBright("\n To start your application, run the command: 'kage run'.\n Make sure Docker is running and configured properly."));
-      
+      console.log(
+        chalk.blueBright(
+          "\n To start your application, run the command: 'kage run'.\n Make sure Docker is running and configured properly."
+        )
+      );
     } catch (error: any) {
       spinner.fail(chalk.red(`Error: ${error.message}`));
       process.exit(1);
     }
   });
 
+  program.command("run").description("Start the Docker containers").action(run);
+
   program
-    .command("run")
-    .description("Start the Docker containers")
-    .action(run);
+    .command("build")
+    .description("Build the Docker containers")
+    .action(build);
 
   program.parse();
 }
