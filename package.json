@@ -1,6 +1,6 @@
 {
   "name": "kage-cli",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "CLI tool to automate self-hosting configuration",
   "author": {
     "name": "Onboardbase",
@@ -32,10 +32,12 @@
     "chalk": "^4",
     "commander": "^11.0.0",
     "inquirer": "^8.2.6",
+    "js-yaml": "^4.1.0",
     "ora": "^5.4.1"
   },
   "devDependencies": {
     "@types/inquirer": "^8.2.10",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.6.1",
     "@typescript-eslint/eslint-plugin": "^8.20.0",
     "@typescript-eslint/parser": "^8.20.0",
