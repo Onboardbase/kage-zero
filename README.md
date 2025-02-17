@@ -176,17 +176,8 @@ kage/
 
 ### CI/CD Integration
 
-Kage makes it easy to set up continuous integration and deployment pipelines. Here's how to configure GitHub Actions with Kage:
+Here's how to configure GitHub Actions with Kage. [Example here](https://github.com/Onboardbase/kage-ci-example)
 
-#### Prerequisites
-1. Install kage-cli globally:
-   ```sh
-   npm install -g kage-cli
-   ```
-2. Ensure you have Docker and Docker Compose installed
-3. Create Docker Hub credentials and add them to your GitHub secrets as `DOCKER_USERNAME` and `DOCKER_PASSWORD`
-
-#### GitHub Actions Setup
 Create a `.github/workflows/kage-build-and-push.yml` file with:
 
 ```yaml
