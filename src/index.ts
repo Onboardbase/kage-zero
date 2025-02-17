@@ -160,6 +160,11 @@ async function main() {
   program
     .command("build")
     .description("Build the Docker containers")
+    .option('-t, --target <target>', 'Build target (local or docker-hub)')
+    .option('-a, --account <account>', 'Docker Hub account name')
+    .option('-i, --image <image>', 'Docker image name')
+    .option('-v, --version <version>', 'Image version')
+    .option('-p, --push', 'Push to Docker Hub after build')
     .action(build);
 
   program.parse();

@@ -8,6 +8,20 @@ import { checkDockerStatus } from "../utils";
 
 const COMPOSE_FILE_PATH = "./kage/docker-compose.yml";
 
+interface BuildOptions {
+  target?: "local" | "docker-hub";
+  account?: string;
+  image?: string;
+  version?: string;
+  push?: boolean;
+}
+
+interface DockerHubDetails {
+  dockerHubAccount: string;
+  imageName: string;
+  version: string;
+}
+
 async function verifyDockerEnvironment(spinner: ora.Ora) {
   if (!(await checkDockerStatus())) {
     spinner.fail(
@@ -53,7 +67,16 @@ async function promptForBuildTarget() {
       type: "list",
       name: "buildTarget",
       message: "Where would you like to build?",
-      choices: ["Local", "Docker Hub"],
+      choices: [
+        {
+          name: "Local",
+          value: "local",
+        },
+        {
+          name: "Docker Hub",
+          value: "docker-hub",
+        },
+      ],
     },
   ]);
 }
@@ -139,7 +162,7 @@ async function buildDockerHubContainers(
   }
 }
 
-export const build = async () => {
+export const build = async (options: BuildOptions) => {
   let spinner = ora("Checking environment...\n").start();
 
   try {
@@ -149,23 +172,34 @@ export const build = async () => {
     // Stop the initial spinner after verification
     spinner.stop();
 
-    const { buildTarget } = await promptForBuildTarget();
+    const buildTarget =
+      options.target || (await promptForBuildTarget()).buildTarget;
 
-    if (buildTarget === "Local") {
+    if (buildTarget === "local") {
       // Create new spinner for build process
       spinner = ora().start();
       await buildLocalContainers(spinner);
     } else {
-      const { dockerHubAccount, imageName, version } =
-        await promptForDockerHubDetails();
-      const { buildAction } = await promptForBuildAction();
+      const dockerHubDetails: DockerHubDetails =
+        options.account && options.image
+          ? {
+              dockerHubAccount: options.account,
+              imageName: options.image,
+              version: options.version || "latest",
+            }
+          : await promptForDockerHubDetails();
+
+      const buildAction = options.push
+        ? "build_push"
+        : (await promptForBuildAction()).buildAction;
+
       // Create new spinner for build process
       spinner = ora().start();
       await buildDockerHubContainers(
         spinner,
-        dockerHubAccount,
-        imageName,
-        version,
+        dockerHubDetails.dockerHubAccount,
+        dockerHubDetails.imageName,
+        dockerHubDetails.version,
         buildAction
       );
     }
