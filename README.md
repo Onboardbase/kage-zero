@@ -20,13 +20,16 @@
 
 ## Features
 
-- 🔍 Intelligent project type detection (NextJS, Astro, Nuxt, React, Vite, Express, NestJS, Hono)
-- 🐳 Automated Docker configuration generation
+- 🔍 Intelligent project type detection (NextJS, Astro, Nuxt, React, Vite, Vue, Express, NestJS, Hono)
+- 🐳 Automated Docker configuration generation for both static and dynamic applications
 - 🔐 Built-in SSL certificate management with Caddy
 - 🌐 Multi-domain support out of the box
 - ⚡ Interactive CLI with smart defaults
 - 🛠️ Zero-config setup for popular frameworks
 - 📦 Development and production ready configurations
+- 🚀 Docker Hub integration for building and pushing images
+- 🔧 Automatic port conflict detection and resolution
+- 🛡️ Security headers and optimizations pre-configured
 
 ## Installation
 
@@ -61,17 +64,88 @@ Kage simplifies the self-hosting process in three easy steps:
 
 ## Usage
 
+### Initialization Examples
 To initialize configuration for your project:
 
+1. **Basic initialization with interactive prompts**
 ```bash
 kage init
 ```
 
+2. **For SSR Applications (e.g., Next.js, Nuxt SSR)**
+```bash
+kage init \
+  -n myapp \
+  -p 3000 \
+  -d myapp.localhost \
+  -e admin@example.com
+```
+3. **For Static Sites (e.g., Astro SSG, Vite)**
+```bash
+kage init \
+  -n my-static-site \
+  -o dist \
+  -d myapp.localhost \
+  -e admin@example.com
+```
+
+#### Available options:
+```bash
+-n, --app-name <name>    Application name (must match "^[a-z0-9][a-z0-9_-]*$")
+-p, --port <port>        Port the app should run on
+-o, --output-dir <dir>   Build output directory
+-d, --domain <domain>    Domain name (e.g., example.com or subdomain.localhost)
+-e, --email <email>      Email address for SSL certificates
+```
+
 The CLI will guide you through the following steps:
 1. Automatically detect your project type
-2. Configure the port for your application
-3. Set up your domain name(s)
-4. Provide an email for SSL certificates
+2. Set the port for your application (with framework-specific defaults)
+3. Configure the output directory for static sites (default: `dist`)
+4. Set up your domain name(s)
+5. Provide an email for SSL certificates
+
+### Building Containers
+
+1. **Build locally with interactive prompts**
+```bash
+kage build
+```
+
+2. **Build for Docker Hub with all options specified**
+```bash
+kage build \
+  -t docker-hub \
+  -a mydockerhub \
+  -i myapp \
+  -v latest \
+  --push
+```
+
+3. **Build locally without prompts**
+```bash
+kage build --target local
+```
+
+4. **Build for Docker Hub with partial options (prompt for missing values)**
+```bash
+kage build -t docker-hub -a mydockerhub
+```
+
+#### Available options:
+```bash
+-t, --target <target>    Build target (local or docker-hub)
+-a, --account <account>  Docker Hub account name
+-i, --image <image>      Docker image name
+-v, --version <version>  Image version
+-p, --push               Push to Docker Hub after build
+```
+
+The build command will:
+1. Verify Docker is running
+2. Check for required configuration files
+3. Build containers either locally or for Docker Hub
+4. Optionally push to Docker Hub if --push is specified
 
 To start your containerized application:
 
