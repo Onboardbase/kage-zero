@@ -32,6 +32,11 @@
 - 🔧 Automatic port conflict detection and resolution
 - 🛡️ Security headers and optimizations pre-configured
 
+> [!WARNING]
+>
+> It is important to note that Kage does not support monorepos or other languages yet but this is on our [roadmap](https://github.com/Onboardbase/kage#roadmap). 
+>
+
 ## Installation
 
 ```bash
@@ -277,11 +282,11 @@ If you're using a client-side framework or a server-side framework with SSG (Sta
 - `kage build`: Build and optionally push Docker images
 
 ### In Progress
-- **Monorepo Support**: Extend kage to work with monorepos
-- **Language Support**: Add support for Python, PHP, Go, and Rust projects
+- **Monorepo Support**: Extend kage to work with monorepos.
+- **Language Support**: Add support for Python, PHP, Go, and Rust projects.
+- `kage license`: Manage licenses for your self-hosted products
 - `kage caniuse`: Analyze a self-hostable product's dependencies, track licenses, and flag usage restrictions
 - `kage ship`: Deploy your or any self-hosting ready product to any server
-- `kage license`: Manage licenses for your self-hosted products
 
 ## Contributing
 
