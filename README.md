@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/kagehq/zero.svg)](https://badge.fury.io/js/kagehq/zero)
+[![npm version](https://badge.fury.io/js/@kagehq/zero.svg)](https://badge.fury.io/js/@kagehq/zero)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Kage
@@ -40,19 +40,19 @@
 ## Installation
 
 ```bash
-npm i -g kagehq/zero
+npm i -g @kagehq/zero
 ```
 
 ### Or using Yarn
 
 ```bash
-yarn global add kagehq/zero
+yarn global add @kagehq/zero
 ```
 
 ### Or using pnpm
 
 ```bash
-pnpm i -g kagehq/zero
+pnpm i -g @kagehq/zero
 ```
 
 ## Requirements
@@ -206,8 +206,8 @@ jobs:
         with:
           node-version: "lts/*"
 
-      - name: Install kagehq/zero
-        run: npm install -g kagehq/zero@latest
+      - name: Install @kagehq/zero
+        run: npm install -g @kagehq/zero@latest
 
       - name: Initialize kage
         run: |
