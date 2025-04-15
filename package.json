@@ -1,6 +1,6 @@
 {
   "name": "@kagehq/zero",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "CLI tool to automate self-hosting configuration",
   "author": {
     "name": "Onboardbase",
