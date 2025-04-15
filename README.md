@@ -1,11 +1,11 @@
 [![npm version](https://badge.fury.io/js/@kagehq/zero.svg)](https://badge.fury.io/js/@kagehq/zero)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# Kage
+# Kage Zero
 
 > A powerful CLI tool that transforms your web applications into self-hostable solutions in minutes. Say goodbye to manual Docker configurations and deployment headaches.
 
-`kage` automates the tedious process of preparing applications for self-hosting by automatically generating Docker configurations, setting up reverse proxies, and managing SSL certificates. Perfect for developers who want to make their applications self-hostable with minimal effort.
+`kage zero` automates the tedious process of preparing applications for self-hosting by automatically generating Docker configurations, setting up reverse proxies, and managing SSL certificates. Perfect for developers who want to make their applications self-hostable with minimal effort.
 
 ## Table of Contents
 - [Features](#features)
@@ -62,7 +62,7 @@ pnpm i -g @kagehq/zero
 
 ## How It Works
 
-Kage simplifies the self-hosting process in three easy steps:
+Kage zero simplifies the self-hosting process in three easy steps:
 
 1. **Project Analysis**: Scans your project to detect the framework, dependencies, and configuration requirements
 2. **Configuration Generation**: Creates optimized Docker configurations and environment files
@@ -181,7 +181,7 @@ kage/
 
 ### CI/CD Integration
 
-Here's how to configure GitHub Actions with Kage. [Example here](https://github.com/Onboardbase/kage-ci-example)
+Here's how to configure GitHub Actions with Kage Zero. [Example here](https://github.com/Onboardbase/kage-ci-example)
 
 Create a `.github/workflows/kage-build-and-push.yml` file with:
 
