@@ -1,6 +1,3 @@
-[![npm version](https://badge.fury.io/js/@kagehq/zero.svg)](https://badge.fury.io/js/@kagehq/zero)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 # Kage Zero
 
 > A powerful CLI tool that transforms your web applications into self-hostable solutions in minutes. Say goodbye to manual Docker configurations and deployment headaches.
@@ -283,10 +280,6 @@ If you're using a client-side framework or a server-side framework with SSG (Sta
 
 ### In Progress
 - **Monorepo Support**: Extend kage to work with monorepos.
-- **Language Support**: Add support for Python, PHP, Go, and Rust projects.
-- `kage license`: Manage licenses for your self-hosted products
-- `kage caniuse`: Analyze a self-hostable product's dependencies, track licenses, and flag usage restrictions
-- `kage ship`: Deploy your or any self-hosting ready product to any server
 
 ## Contributing
 
